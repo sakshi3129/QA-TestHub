@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>QA-TestHub - AI Bug Analyzer</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 18px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1f2937;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            padding: 12px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        pre {
+            background: #f1f5f9;
+            padding: 20px;
+            white-space: pre-wrap;
+            border-radius: 5px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            background: #1f2937;
+            color: white;
+            padding: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>QA-TestHub</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="test-cases.html">Test Cases</a>
+        <a href="test-execution.html">Test Execution</a>
+        <a href="bugs.html">Bugs</a>
+        <a href="rtm.html">RTM</a>
+        <a href="api-testing.html">API Testing</a>
+        <a href="ai-assistant.html">AI Assistant</a>
+        <a href="bug-analyzer.html">Bug Analyzer</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>AI Bug Analyzer</h2>
+
+        <p>
+            Use AI-assisted analysis to understand software defects.
+        </p>
+
+        <label>Bug Information</label>
+
+        <textarea
+            id="bugInput"
+            placeholder="Example: Login button does not work when valid username and password are entered."
+        ></textarea>
+
+
+        <button onclick="generateBugPrompt()">
+            Generate Bug Analysis Prompt
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Generated AI Prompt</h2>
+
+        <pre id="output">
+Your bug analysis prompt will appear here.
+        </pre>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <p>QA-TestHub | AI-Assisted Software Testing</p>
+
+</footer>
+
+
+<script>
+
+function generateBugPrompt() {
+
+    let bug = document.getElementById("bugInput").value;
+
+    if (bug.trim() === "") {
+
+        alert("Please enter bug information.");
+
+        return;
+    }
+
+    let prompt =
+`Act as a Senior Software Tester.
+
+Analyze the following software defect:
+
+${bug}
+
+Provide the following:
+
+1. Bug Summary
+2. Possible Root Cause
+3. Severity
+4. Priority
+5. Expected Result
+6. Actual Result
+7. Reproduction Analysis
+8. Suggested Fix
+9. Regression Test Recommendations
+
+Do not assume information that is not provided.
+Clearly mention if additional information is required.`;
+
+    document.getElementById("output").textContent = prompt;
+
+}
+
+</script>
+
+
+</body>
+</html>
