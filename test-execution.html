@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Test Execution - QA-TestHub</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #172033;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        select,
+        textarea,
+        input {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 18px;
+            padding: 11px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 11px;
+            text-align: left;
+        }
+
+        th {
+            background: #172033;
+            color: white;
+        }
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+
+        .blocked {
+            color: orange;
+            font-weight: bold;
+        }
+
+        @media(max-width: 700px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>QA-TestHub</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="requirements.html">Requirements</a>
+
+        <a href="test-cases.html">Test Cases</a>
+
+        <a href="test-execution.html">Execution</a>
+
+        <a href="bugs.html">Bugs</a>
+
+        <a href="rtm.html">RTM</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Test Execution</h2>
+
+
+    <div class="card">
+
+        <h3>Execute Test Case</h3>
+
+        <label>Test Case ID</label>
+
+        <select id="testCase">
+
+            <option value="TC-001">
+                TC-001 - Valid Login
+            </option>
+
+            <option value="TC-002">
+                TC-002 - Invalid Password
+            </option>
+
+            <option value="TC-003">
+                TC-003 - Empty Username
+            </option>
+
+            <option value="TC-004">
+                TC-004 - Logout
+            </option>
+
+            <option value="TC-005">
+                TC-005 - Password Masking
+            </option>
+
+            <option value="TC-006">
+                TC-006 - Valid Registration
+            </option>
+
+            <option value="TC-007">
+                TC-007 - Existing Email
+            </option>
+
+            <option value="TC-008">
+                TC-008 - Password Mismatch
+            </option>
+
+            <option value="TC-009">
+                TC-009 - Forgot Password
+            </option>
+
+            <option value="TC-010">
+                TC-010 - Maximum Password Length
+            </option>
+
+        </select>
+
+
+        <label>Actual Result</label>
+
+        <textarea
+            id="actual"
+            placeholder="Enter actual result">
+        </textarea>
+
+
+        <label>Status</label>
+
+        <select id="status">
+
+            <option value="Pass">
+                Pass
+            </option>
+
+            <option value="Fail">
+                Fail
+            </option>
+
+            <option value="Blocked">
+                Blocked
+            </option>
+
+        </select>
+
+
+        <label>Tester Comments</label>
+
+        <textarea
+            id="comments"
+            placeholder="Enter tester comments">
+        </textarea>
+
+
+        <button onclick="saveExecution()">
+            Save Execution
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Execution History</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Test Case</th>
+
+                    <th>Actual Result</th>
+
+                    <th>Status</th>
+
+                    <th>Comments</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="executionBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let executions =
+    JSON.parse(localStorage.getItem("qaExecutions")) || [];
+
+
+function saveExecution() {
+
+    let testCase =
+        document.getElementById("testCase").value;
+
+    let actual =
+        document.getElementById("actual").value.trim();
+
+    let status =
+        document.getElementById("status").value;
+
+    let comments =
+        document.getElementById("comments").value.trim();
+
+
+    if (actual === "") {
+
+        alert("Please enter Actual Result");
+
+        return;
+
+    }
+
+
+    let execution = {
+
+        testCase: testCase,
+
+        actual: actual,
+
+        status: status,
+
+        comments: comments
+
+    };
+
+
+    executions.push(execution);
+
+
+    localStorage.setItem(
+        "qaExecutions",
+        JSON.stringify(executions)
+    );
+
+
+    alert("Test execution saved successfully!");
+
+
+    document.getElementById("actual").value = "";
+
+    document.getElementById("comments").value = "";
+
+
+    displayExecutions();
+
+}
+
+
+function displayExecutions() {
+
+    let body =
+        document.getElementById("executionBody");
+
+
+    body.innerHTML = "";
+
+
+    executions.forEach(function(item) {
+
+        let statusClass =
+            item.status.toLowerCase();
+
+
+        body.innerHTML += `
+
+            <tr>
+
+                <td>${item.testCase}</td>
+
+                <td>${item.actual}</td>
+
+                <td class="${statusClass}">
+                    ${item.status}
+                </td>
+
+                <td>${item.comments}</td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+displayExecutions();
+
+</script>
+
+</body>
+
+</html>

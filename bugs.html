@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Bug Management - QA-TestHub</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #172033;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 90px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 18px;
+            padding: 11px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #172033;
+            color: white;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+        }
+
+        .open {
+            color: red;
+            font-weight: bold;
+        }
+
+        .fixed {
+            color: green;
+            font-weight: bold;
+        }
+
+        .retest {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .closed {
+            color: gray;
+            font-weight: bold;
+        }
+
+        @media(max-width: 700px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin-bottom: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>QA-TestHub</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="requirements.html">Requirements</a>
+
+        <a href="test-cases.html">Test Cases</a>
+
+        <a href="test-execution.html">Execution</a>
+
+        <a href="bugs.html">Bugs</a>
+
+        <a href="rtm.html">RTM</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Bug Management</h2>
+
+
+    <div class="card">
+
+        <h3>Report New Bug</h3>
+
+
+        <label>Bug Title</label>
+
+        <input
+            id="title"
+            type="text"
+            placeholder="Enter bug title">
+
+
+        <label>Related Test Case</label>
+
+        <select id="testCase">
+
+            <option value="TC-001">TC-001 - Valid Login</option>
+
+            <option value="TC-002">TC-002 - Invalid Password</option>
+
+            <option value="TC-003">TC-003 - Empty Username</option>
+
+            <option value="TC-004">TC-004 - Logout</option>
+
+            <option value="TC-005">TC-005 - Password Masking</option>
+
+            <option value="TC-006">TC-006 - Valid Registration</option>
+
+            <option value="TC-007">TC-007 - Existing Email</option>
+
+            <option value="TC-008">TC-008 - Password Mismatch</option>
+
+            <option value="TC-009">TC-009 - Forgot Password</option>
+
+            <option value="TC-010">TC-010 - Maximum Password Length</option>
+
+        </select>
+
+
+        <label>Description</label>
+
+        <textarea
+            id="description"
+            placeholder="Describe the bug">
+        </textarea>
+
+
+        <label>Steps to Reproduce</label>
+
+        <textarea
+            id="steps"
+            placeholder="1. Open website
+2. Enter username
+3. Click Login">
+        </textarea>
+
+
+        <label>Expected Result</label>
+
+        <textarea
+            id="expected"
+            placeholder="Enter expected result">
+        </textarea>
+
+
+        <label>Actual Result</label>
+
+        <textarea
+            id="actual"
+            placeholder="Enter actual result">
+        </textarea>
+
+
+        <label>Severity</label>
+
+        <select id="severity">
+
+            <option value="High">High</option>
+
+            <option value="Medium">Medium</option>
+
+            <option value="Low">Low</option>
+
+        </select>
+
+
+        <label>Priority</label>
+
+        <select id="priority">
+
+            <option value="High">High</option>
+
+            <option value="Medium">Medium</option>
+
+            <option value="Low">Low</option>
+
+        </select>
+
+
+        <label>Status</label>
+
+        <select id="bugStatus">
+
+            <option value="Open">Open</option>
+
+            <option value="Fixed">Fixed</option>
+
+            <option value="Retest">Retest</option>
+
+            <option value="Closed">Closed</option>
+
+        </select>
+
+
+        <button onclick="saveBug()">
+            Report Bug
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Bug Search & Filter</h3>
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search bug title..."
+            onkeyup="filterBugs()">
+
+
+        <label>Status Filter</label>
+
+        <select id="statusFilter" onchange="filterBugs()">
+
+            <option value="">All Status</option>
+
+            <option value="Open">Open</option>
+
+            <option value="Fixed">Fixed</option>
+
+            <option value="Retest">Retest</option>
+
+            <option value="Closed">Closed</option>
+
+        </select>
+
+
+        <label>Severity Filter</label>
+
+        <select id="severityFilter" onchange="filterBugs()">
+
+            <option value="">All Severity</option>
+
+            <option value="High">High</option>
+
+            <option value="Medium">Medium</option>
+
+            <option value="Low">Low</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>Bug History</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Bug ID</th>
+
+                    <th>Title</th>
+
+                    <th>Test Case</th>
+
+                    <th>Severity</th>
+
+                    <th>Priority</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="bugBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let bugs =
+    JSON.parse(localStorage.getItem("qaBugs")) || [];
+
+
+function saveBug() {
+
+    let title =
+        document.getElementById("title").value.trim();
+
+    let testCase =
+        document.getElementById("testCase").value;
+
+    let description =
+        document.getElementById("description").value.trim();
+
+    let steps =
+        document.getElementById("steps").value.trim();
+
+    let expected =
+        document.getElementById("expected").value.trim();
+
+    let actual =
+        document.getElementById("actual").value.trim();
+
+    let severity =
+        document.getElementById("severity").value;
+
+    let priority =
+        document.getElementById("priority").value;
+
+    let status =
+        document.getElementById("bugStatus").value;
+
+
+    if (
+        title === "" ||
+        description === "" ||
+        steps === "" ||
+        expected === "" ||
+        actual === ""
+    ) {
+
+        alert("Please fill all required fields");
+
+        return;
+
+    }
+
+
+    let bugNumber = bugs.length + 1;
+
+    let bugId =
+        "BUG-" + String(bugNumber).padStart(3, "0");
+
+
+    let bug = {
+
+        id: bugId,
+
+        title: title,
+
+        testCase: testCase,
+
+        description: description,
+
+        steps: steps,
+
+        expected: expected,
+
+        actual: actual,
+
+        severity: severity,
+
+        priority: priority,
+
+        status: status
+
+    };
+
+
+    bugs.push(bug);
+
+
+    localStorage.setItem(
+        "qaBugs",
+        JSON.stringify(bugs)
+    );
+
+
+    alert("Bug reported successfully!");
+
+
+    document.getElementById("title").value = "";
+
+    document.getElementById("description").value = "";
+
+    document.getElementById("steps").value = "";
+
+    document.getElementById("expected").value = "";
+
+    document.getElementById("actual").value = "";
+
+
+    displayBugs();
+
+}
+
+
+function displayBugs(data = bugs) {
+
+    let body =
+        document.getElementById("bugBody");
+
+    body.innerHTML = "";
+
+
+    data.forEach(function(bug) {
+
+        let severityClass =
+            bug.severity.toLowerCase();
+
+        let statusClass =
+            bug.status.toLowerCase();
+
+
+        body.innerHTML += `
+
+        <tr>
+
+            <td>${bug.id}</td>
+
+            <td>${bug.title}</td>
+
+            <td>${bug.testCase}</td>
+
+            <td class="${severityClass}">
+                ${bug.severity}
+            </td>
+
+            <td>${bug.priority}</td>
+
+            <td class="${statusClass}">
+                ${bug.status}
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function filterBugs() {
+
+    let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+
+    let status =
+        document.getElementById("statusFilter").value;
+
+
+    let severity =
+        document.getElementById("severityFilter").value;
+
+
+    let filtered =
+        bugs.filter(function(bug) {
+
+            return (
+
+                bug.title
+                    .toLowerCase()
+                    .includes(search)
+
+                &&
+
+                (status === "" ||
+                 bug.status === status)
+
+                &&
+
+                (severity === "" ||
+                 bug.severity === severity)
+
+            );
+
+        });
+
+
+    displayBugs(filtered);
+
+}
+
+
+displayBugs();
+
+</script>
+
+</body>
+</html>

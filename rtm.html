@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>RTM - QA-TestHub</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #172033;
+            color: white;
+            padding: 20px 30px;
+        }
+
+        header h1 {
+            margin: 0 0 12px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #172033;
+            color: white;
+        }
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+
+        .blocked {
+            color: orange;
+            font-weight: bold;
+        }
+
+        @media(max-width:700px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>QA-TestHub</h1>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="requirements.html">Requirements</a>
+
+        <a href="test-cases.html">Test Cases</a>
+
+        <a href="test-execution.html">Execution</a>
+
+        <a href="bugs.html">Bugs</a>
+
+        <a href="rtm.html">RTM</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <h2>Requirement Traceability Matrix</h2>
+
+
+    <div class="card">
+
+        <h3>RTM Overview</h3>
+
+        <p>
+            RTM maps requirements with their corresponding
+            test cases and execution results.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Requirement ID</th>
+
+                    <th>Requirement</th>
+
+                    <th>Test Case</th>
+
+                    <th>Test Scenario</th>
+
+                    <th>Execution Status</th>
+
+                    <th>Coverage</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="rtmBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let rtmData = [
+
+    {
+        req: "REQ-001",
+        requirement: "User Login",
+        testCase: "TC-001",
+        scenario: "Valid Login",
+        status: "Pass",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-001",
+        requirement: "User Login",
+        testCase: "TC-002",
+        scenario: "Invalid Password",
+        status: "Pass",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-001",
+        requirement: "User Login",
+        testCase: "TC-003",
+        scenario: "Empty Username",
+        status: "Fail",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-002",
+        requirement: "User Registration",
+        testCase: "TC-006",
+        scenario: "Valid Registration",
+        status: "Pass",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-002",
+        requirement: "User Registration",
+        testCase: "TC-007",
+        scenario: "Existing Email",
+        status: "Pass",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-002",
+        requirement: "User Registration",
+        testCase: "TC-008",
+        scenario: "Password Mismatch",
+        status: "Fail",
+        coverage: "Covered"
+    },
+
+    {
+        req: "REQ-003",
+        requirement: "Password Reset",
+        testCase: "TC-009",
+        scenario: "Forgot Password",
+        status: "Pass",
+        coverage: "Covered"
+    }
+
+];
+
+
+function displayRTM() {
+
+    let body =
+        document.getElementById("rtmBody");
+
+
+    body.innerHTML = "";
+
+
+    rtmData.forEach(function(item) {
+
+        let statusClass =
+            item.status.toLowerCase();
+
+
+        body.innerHTML += `
+
+        <tr>
+
+            <td>${item.req}</td>
+
+            <td>${item.requirement}</td>
+
+            <td>${item.testCase}</td>
+
+            <td>${item.scenario}</td>
+
+            <td class="${statusClass}">
+                ${item.status}
+            </td>
+
+            <td>${item.coverage}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+displayRTM();
+
+</script>
+
+</body>
+</html>

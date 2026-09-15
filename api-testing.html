@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QA-TestHub - API Testing</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #1f2937;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #1f2937;
+            color: white;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            background: #1f2937;
+            color: white;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>QA-TestHub</h1>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="requirements.html">Requirements</a>
+        <a href="test-cases.html">Test Cases</a>
+        <a href="test-execution.html">Test Execution</a>
+        <a href="bugs.html">Bugs</a>
+        <a href="rtm.html">RTM</a>
+        <a href="api-testing.html">API Testing</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>API Testing - Postman</h2>
+
+        <p>
+            API testing performed using Postman for QA-TestHub.
+        </p>
+
+        <table>
+            <tr>
+                <th>Test Case</th>
+                <th>Method</th>
+                <th>Endpoint</th>
+                <th>Expected Status</th>
+            </tr>
+
+            <tr>
+                <td>API-TC-001</td>
+                <td>GET</td>
+                <td>/users/1</td>
+                <td>200 OK</td>
+            </tr>
+
+            <tr>
+                <td>API-TC-002</td>
+                <td>GET</td>
+                <td>/users/9999</td>
+                <td>404 Not Found</td>
+            </tr>
+
+            <tr>
+                <td>API-TC-003</td>
+                <td>POST</td>
+                <td>/posts</td>
+                <td>201 Created</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="card">
+        <h2>Add API Test Result</h2>
+
+        <label>Test Case</label>
+
+        <select id="testCase">
+            <option>API-TC-001 - GET User</option>
+            <option>API-TC-002 - GET Invalid User</option>
+            <option>API-TC-003 - POST Create Post</option>
+        </select>
+
+        <label>Actual Status Code</label>
+
+        <input type="text" id="statusCode" placeholder="Example: 200">
+
+        <label>Result</label>
+
+        <select id="result">
+            <option>PASS</option>
+            <option>FAIL</option>
+        </select>
+
+        <label>Comments</label>
+
+        <textarea id="comments" placeholder="Enter test result comments"></textarea>
+
+        <button onclick="saveResult()">Save Result</button>
+    </div>
+
+
+    <div class="card">
+
+        <h2>API Execution History</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Test Case</th>
+                    <th>Status Code</th>
+                    <th>Result</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultBody">
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<footer>
+    <p>QA-TestHub | Software Testing Portfolio Project</p>
+</footer>
+
+
+<script>
+
+function saveResult() {
+
+    let testCase = document.getElementById("testCase").value;
+
+    let statusCode = document.getElementById("statusCode").value;
+
+    let result = document.getElementById("result").value;
+
+    let comments = document.getElementById("comments").value;
+
+    if (statusCode === "") {
+        alert("Please enter status code");
+        return;
+    }
+
+    let apiResults = JSON.parse(localStorage.getItem("qaApiResults")) || [];
+
+    apiResults.push({
+        testCase: testCase,
+        statusCode: statusCode,
+        result: result,
+        comments: comments
+    });
+
+    localStorage.setItem("qaApiResults", JSON.stringify(apiResults));
+
+    displayResults();
+
+    document.getElementById("statusCode").value = "";
+    document.getElementById("comments").value = "";
+
+    alert("API Test Result Saved Successfully!");
+
+}
+
+
+function displayResults() {
+
+    let apiResults = JSON.parse(localStorage.getItem("qaApiResults")) || [];
+
+    let body = document.getElementById("resultBody");
+
+    body.innerHTML = "";
+
+    apiResults.forEach(function(item) {
+
+        body.innerHTML += `
+            <tr>
+                <td>${item.testCase}</td>
+                <td>${item.statusCode}</td>
+                <td>${item.result}</td>
+                <td>${item.comments}</td>
+            </tr>
+        `;
+
+    });
+
+}
+
+
+displayResults();
+
+</script>
+
+</body>
+</html>
