@@ -1,6 +1,6 @@
 # QA-TestHub - Test Plan
 
-## 1. Project Overview
+1. Project Overview
 
 QA-TestHub is a lightweight web-based QA Test Management Platform designed to manage software testing activities.
 
