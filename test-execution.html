@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <title>Test Execution - QA-TestHub</title>
@@ -136,7 +137,9 @@
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -172,51 +175,10 @@
 
         <h3>Execute Test Case</h3>
 
+
         <label>Test Case ID</label>
 
-        <select id="testCase">
-
-            <option value="TC-001">
-                TC-001 - Valid Login
-            </option>
-
-            <option value="TC-002">
-                TC-002 - Invalid Password
-            </option>
-
-            <option value="TC-003">
-                TC-003 - Empty Username
-            </option>
-
-            <option value="TC-004">
-                TC-004 - Logout
-            </option>
-
-            <option value="TC-005">
-                TC-005 - Password Masking
-            </option>
-
-            <option value="TC-006">
-                TC-006 - Valid Registration
-            </option>
-
-            <option value="TC-007">
-                TC-007 - Existing Email
-            </option>
-
-            <option value="TC-008">
-                TC-008 - Password Mismatch
-            </option>
-
-            <option value="TC-009">
-                TC-009 - Forgot Password
-            </option>
-
-            <option value="TC-010">
-                TC-010 - Maximum Password Length
-            </option>
-
-        </select>
+        <select id="testCase"></select>
 
 
         <label>Actual Result</label>
@@ -231,17 +193,11 @@
 
         <select id="status">
 
-            <option value="Pass">
-                Pass
-            </option>
+            <option value="Pass">Pass</option>
 
-            <option value="Fail">
-                Fail
-            </option>
+            <option value="Fail">Fail</option>
 
-            <option value="Blocked">
-                Blocked
-            </option>
+            <option value="Blocked">Blocked</option>
 
         </select>
 
@@ -283,9 +239,7 @@
 
             </thead>
 
-            <tbody id="executionBody">
-
-            </tbody>
+            <tbody id="executionBody"></tbody>
 
         </table>
 
@@ -296,20 +250,142 @@
 
 <script>
 
+
+let defaultTestCases = [
+
+    {
+        id: "TC-001",
+        scenario: "Valid Login"
+    },
+
+    {
+        id: "TC-002",
+        scenario: "Invalid Password"
+    },
+
+    {
+        id: "TC-003",
+        scenario: "Empty Username"
+    },
+
+    {
+        id: "TC-004",
+        scenario: "Logout"
+    },
+
+    {
+        id: "TC-005",
+        scenario: "Password Masking"
+    },
+
+    {
+        id: "TC-006",
+        scenario: "Valid Registration"
+    },
+
+    {
+        id: "TC-007",
+        scenario: "Existing Email"
+    },
+
+    {
+        id: "TC-008",
+        scenario: "Password Mismatch"
+    },
+
+    {
+        id: "TC-009",
+        scenario: "Forgot Password"
+    },
+
+    {
+        id: "TC-010",
+        scenario: "Maximum Password Length"
+    }
+
+];
+
+
+// Get dynamically added test cases
+
+let storedTestCases =
+    JSON.parse(localStorage.getItem("qaTestCases")) || [];
+
+
+let testCases = [
+    ...defaultTestCases
+];
+
+
+// Add dynamic test cases without duplicates
+
+storedTestCases.forEach(function(tc) {
+
+    let exists =
+        testCases.some(function(item) {
+
+            return item.id === tc.id;
+
+        });
+
+
+    if (!exists) {
+
+        testCases.push(tc);
+
+    }
+
+});
+
+
+// Get previous executions
+
 let executions =
     JSON.parse(localStorage.getItem("qaExecutions")) || [];
 
+
+// Load test cases into dropdown
+
+function loadTestCases() {
+
+    let dropdown =
+        document.getElementById("testCase");
+
+    dropdown.innerHTML = "";
+
+
+    testCases.forEach(function(tc) {
+
+        let option =
+            document.createElement("option");
+
+        option.value = tc.id;
+
+        option.textContent =
+            tc.id + " - " + tc.scenario;
+
+        dropdown.appendChild(option);
+
+    });
+
+}
+
+
+// Save execution
 
 function saveExecution() {
 
     let testCase =
         document.getElementById("testCase").value;
 
+
     let actual =
         document.getElementById("actual").value.trim();
 
+
     let status =
         document.getElementById("status").value;
+
 
     let comments =
         document.getElementById("comments").value.trim();
@@ -332,13 +408,39 @@ function saveExecution() {
 
         status: status,
 
-        comments: comments
+        comments: comments,
+
+        date: new Date().toLocaleString()
 
     };
 
 
-    executions.push(execution);
+    // Check if this test case already exists
 
+    let existingIndex =
+        executions.findIndex(function(item) {
+
+            return item.testCase === testCase;
+
+        });
+
+
+    if (existingIndex !== -1) {
+
+        // Update latest execution
+
+        executions[existingIndex] = execution;
+
+    } else {
+
+        // Add new execution
+
+        executions.push(execution);
+
+    }
+
+
+    // Save to localStorage
 
     localStorage.setItem(
         "qaExecutions",
@@ -346,7 +448,10 @@ function saveExecution() {
     );
 
 
-    alert("Test execution saved successfully!");
+    alert(
+        testCase +
+        " execution saved successfully!"
+    );
 
 
     document.getElementById("actual").value = "";
@@ -358,6 +463,8 @@ function saveExecution() {
 
 }
 
+
+// Display execution history
 
 function displayExecutions() {
 
@@ -397,9 +504,13 @@ function displayExecutions() {
 }
 
 
+loadTestCases();
+
 displayExecutions();
 
+
 </script>
+
 
 </body>
 

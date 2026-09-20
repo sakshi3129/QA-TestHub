@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <title>Bug Management - QA-TestHub</title>
@@ -135,6 +136,12 @@
             font-weight: bold;
         }
 
+        .action-btn {
+            margin: 2px;
+            padding: 7px 10px;
+            font-size: 12px;
+        }
+
         @media(max-width: 700px) {
 
             .container {
@@ -156,7 +163,9 @@
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -188,6 +197,8 @@
     <h2>Bug Management</h2>
 
 
+    <!-- REPORT BUG -->
+
     <div class="card">
 
         <h3>Report New Bug</h3>
@@ -203,29 +214,7 @@
 
         <label>Related Test Case</label>
 
-        <select id="testCase">
-
-            <option value="TC-001">TC-001 - Valid Login</option>
-
-            <option value="TC-002">TC-002 - Invalid Password</option>
-
-            <option value="TC-003">TC-003 - Empty Username</option>
-
-            <option value="TC-004">TC-004 - Logout</option>
-
-            <option value="TC-005">TC-005 - Password Masking</option>
-
-            <option value="TC-006">TC-006 - Valid Registration</option>
-
-            <option value="TC-007">TC-007 - Existing Email</option>
-
-            <option value="TC-008">TC-008 - Password Mismatch</option>
-
-            <option value="TC-009">TC-009 - Forgot Password</option>
-
-            <option value="TC-010">TC-010 - Maximum Password Length</option>
-
-        </select>
+        <select id="testCase"></select>
 
 
         <label>Description</label>
@@ -310,9 +299,12 @@
     </div>
 
 
+    <!-- SEARCH -->
+
     <div class="card">
 
         <h3>Bug Search & Filter</h3>
+
 
         <input
             id="search"
@@ -323,7 +315,9 @@
 
         <label>Status Filter</label>
 
-        <select id="statusFilter" onchange="filterBugs()">
+        <select
+            id="statusFilter"
+            onchange="filterBugs()">
 
             <option value="">All Status</option>
 
@@ -340,7 +334,9 @@
 
         <label>Severity Filter</label>
 
-        <select id="severityFilter" onchange="filterBugs()">
+        <select
+            id="severityFilter"
+            onchange="filterBugs()">
 
             <option value="">All Severity</option>
 
@@ -355,9 +351,12 @@
     </div>
 
 
+    <!-- BUG HISTORY -->
+
     <div class="card">
 
         <h3>Bug History</h3>
+
 
         <table>
 
@@ -377,13 +376,14 @@
 
                     <th>Status</th>
 
+                    <th>Action</th>
+
                 </tr>
 
             </thead>
 
-            <tbody id="bugBody">
 
-            </tbody>
+            <tbody id="bugBody"></tbody>
 
         </table>
 
@@ -394,38 +394,193 @@
 
 <script>
 
+
+/* =========================
+   TEST CASES
+========================= */
+
+
+let defaultTestCases = [
+
+    {
+        id: "TC-001",
+        scenario: "Valid Login"
+    },
+
+    {
+        id: "TC-002",
+        scenario: "Invalid Password"
+    },
+
+    {
+        id: "TC-003",
+        scenario: "Empty Username"
+    },
+
+    {
+        id: "TC-004",
+        scenario: "Logout"
+    },
+
+    {
+        id: "TC-005",
+        scenario: "Password Masking"
+    },
+
+    {
+        id: "TC-006",
+        scenario: "Valid Registration"
+    },
+
+    {
+        id: "TC-007",
+        scenario: "Existing Email"
+    },
+
+    {
+        id: "TC-008",
+        scenario: "Password Mismatch"
+    },
+
+    {
+        id: "TC-009",
+        scenario: "Forgot Password"
+    },
+
+    {
+        id: "TC-010",
+        scenario: "Maximum Password Length"
+    }
+
+];
+
+
+let storedTestCases =
+    JSON.parse(localStorage.getItem("qaTestCases")) || [];
+
+
+let testCases = [
+    ...defaultTestCases
+];
+
+
+storedTestCases.forEach(function(tc) {
+
+    let exists =
+        testCases.some(function(item) {
+
+            return item.id === tc.id;
+
+        });
+
+
+    if (!exists) {
+
+        testCases.push(tc);
+
+    }
+
+});
+
+
+/* =========================
+   BUG DATA
+========================= */
+
+
 let bugs =
     JSON.parse(localStorage.getItem("qaBugs")) || [];
+
+
+/* =========================
+   LOAD TEST CASES
+========================= */
+
+
+function loadTestCases() {
+
+    let dropdown =
+        document.getElementById("testCase");
+
+
+    dropdown.innerHTML = "";
+
+
+    testCases.forEach(function(tc) {
+
+        let option =
+            document.createElement("option");
+
+
+        option.value = tc.id;
+
+
+        option.textContent =
+            tc.id + " - " + tc.scenario;
+
+
+        dropdown.appendChild(option);
+
+    });
+
+}
+
+
+/* =========================
+   SAVE BUG
+========================= */
 
 
 function saveBug() {
 
     let title =
-        document.getElementById("title").value.trim();
+        document.getElementById("title")
+        .value
+        .trim();
+
 
     let testCase =
-        document.getElementById("testCase").value;
+        document.getElementById("testCase")
+        .value;
+
 
     let description =
-        document.getElementById("description").value.trim();
+        document.getElementById("description")
+        .value
+        .trim();
+
 
     let steps =
-        document.getElementById("steps").value.trim();
+        document.getElementById("steps")
+        .value
+        .trim();
+
 
     let expected =
-        document.getElementById("expected").value.trim();
+        document.getElementById("expected")
+        .value
+        .trim();
+
 
     let actual =
-        document.getElementById("actual").value.trim();
+        document.getElementById("actual")
+        .value
+        .trim();
+
 
     let severity =
-        document.getElementById("severity").value;
+        document.getElementById("severity")
+        .value;
+
 
     let priority =
-        document.getElementById("priority").value;
+        document.getElementById("priority")
+        .value;
+
 
     let status =
-        document.getElementById("bugStatus").value;
+        document.getElementById("bugStatus")
+        .value;
 
 
     if (
@@ -443,10 +598,13 @@ function saveBug() {
     }
 
 
-    let bugNumber = bugs.length + 1;
+    let bugNumber =
+        bugs.length + 1;
+
 
     let bugId =
-        "BUG-" + String(bugNumber).padStart(3, "0");
+        "BUG-" +
+        String(bugNumber).padStart(3, "0");
 
 
     let bug = {
@@ -469,7 +627,10 @@ function saveBug() {
 
         priority: priority,
 
-        status: status
+        status: status,
+
+        createdDate:
+            new Date().toLocaleString()
 
     };
 
@@ -483,7 +644,10 @@ function saveBug() {
     );
 
 
-    alert("Bug reported successfully!");
+    alert(
+        bugId +
+        " reported successfully!"
+    );
 
 
     document.getElementById("title").value = "";
@@ -502,10 +666,62 @@ function saveBug() {
 }
 
 
+/* =========================
+   UPDATE BUG STATUS
+========================= */
+
+
+function updateBugStatus(
+    bugId,
+    newStatus
+) {
+
+    let bug =
+        bugs.find(function(item) {
+
+            return item.id === bugId;
+
+        });
+
+
+    if (!bug) {
+
+        return;
+
+    }
+
+
+    bug.status = newStatus;
+
+
+    localStorage.setItem(
+        "qaBugs",
+        JSON.stringify(bugs)
+    );
+
+
+    displayBugs();
+
+
+    alert(
+        bugId +
+        " status updated to " +
+        newStatus
+    );
+
+}
+
+
+/* =========================
+   DISPLAY BUGS
+========================= */
+
+
 function displayBugs(data = bugs) {
 
     let body =
         document.getElementById("bugBody");
+
 
     body.innerHTML = "";
 
@@ -514,6 +730,7 @@ function displayBugs(data = bugs) {
 
         let severityClass =
             bug.severity.toLowerCase();
+
 
         let statusClass =
             bug.status.toLowerCase();
@@ -539,6 +756,34 @@ function displayBugs(data = bugs) {
                 ${bug.status}
             </td>
 
+            <td>
+
+                <button
+                    class="action-btn"
+                    onclick="updateBugStatus('${bug.id}', 'Open')">
+                    Open
+                </button>
+
+                <button
+                    class="action-btn"
+                    onclick="updateBugStatus('${bug.id}', 'Fixed')">
+                    Fixed
+                </button>
+
+                <button
+                    class="action-btn"
+                    onclick="updateBugStatus('${bug.id}', 'Retest')">
+                    Retest
+                </button>
+
+                <button
+                    class="action-btn"
+                    onclick="updateBugStatus('${bug.id}', 'Closed')">
+                    Closed
+                </button>
+
+            </td>
+
         </tr>
 
         `;
@@ -546,6 +791,11 @@ function displayBugs(data = bugs) {
     });
 
 }
+
+
+/* =========================
+   FILTER BUGS
+========================= */
 
 
 function filterBugs() {
@@ -557,11 +807,13 @@ function filterBugs() {
 
 
     let status =
-        document.getElementById("statusFilter").value;
+        document.getElementById("statusFilter")
+        .value;
 
 
     let severity =
-        document.getElementById("severityFilter").value;
+        document.getElementById("severityFilter")
+        .value;
 
 
     let filtered =
@@ -575,13 +827,17 @@ function filterBugs() {
 
                 &&
 
-                (status === "" ||
-                 bug.status === status)
+                (
+                    status === "" ||
+                    bug.status === status
+                )
 
                 &&
 
-                (severity === "" ||
-                 bug.severity === severity)
+                (
+                    severity === "" ||
+                    bug.severity === severity
+                )
 
             );
 
@@ -593,9 +849,19 @@ function filterBugs() {
 }
 
 
+/* =========================
+   INITIAL LOAD
+========================= */
+
+
+loadTestCases();
+
 displayBugs();
+
 
 </script>
 
+
 </body>
+
 </html>

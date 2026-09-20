@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
     <title>RTM - QA-TestHub</title>
@@ -79,6 +80,11 @@
             font-weight: bold;
         }
 
+        .not-executed {
+            color: #555;
+            font-weight: bold;
+        }
+
         @media(max-width:700px) {
 
             .container {
@@ -95,7 +101,9 @@
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -239,16 +247,51 @@ let rtmData = [
         scenario: "Forgot Password",
         status: "Pass",
         coverage: "Covered"
+    },
+
+    {
+        req: "REQ-004",
+        requirement: "User Logout",
+        testCase: "TC-011",
+        scenario: "Verify that user can logout successfully",
+        status: "Not Executed",
+        coverage: "Covered"
     }
 
 ];
 
 
+// Get execution data from localStorage
+
+let executionData =
+    JSON.parse(localStorage.getItem("qaExecutions")) || [];
+
+
+// Update RTM status
+
+rtmData.forEach(function(item) {
+
+    let execution = executionData.find(function(test) {
+
+        return test.testCase === item.testCase;
+
+    });
+
+    if (execution) {
+
+        item.status = execution.status;
+
+    }
+
+});
+
+
+// Display RTM
+
 function displayRTM() {
 
     let body =
         document.getElementById("rtmBody");
-
 
     body.innerHTML = "";
 
@@ -256,7 +299,7 @@ function displayRTM() {
     rtmData.forEach(function(item) {
 
         let statusClass =
-            item.status.toLowerCase();
+            item.status.toLowerCase().replace(/ /g, "-");
 
 
         body.innerHTML += `
@@ -290,5 +333,7 @@ displayRTM();
 
 </script>
 
+
 </body>
+
 </html>

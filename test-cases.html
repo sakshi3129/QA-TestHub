@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA-TestHub | Test Cases</title>
+
+    <title>QA-TestHub - Test Cases</title>
 
     <style>
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background: #f4f6f8;
-            color: #222;
         }
 
         header {
             background: #1f2937;
             color: white;
             padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         header h1 {
-            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 12px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin-left: 18px;
-            font-size: 14px;
+            margin-right: 20px;
         }
 
         nav a:hover {
@@ -43,442 +44,670 @@
         }
 
         .container {
-            padding: 35px 40px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
         }
 
-        .page-title {
-            margin-bottom: 25px;
+        h2 {
+            color: #1f2937;
         }
 
-        .page-title h2 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .page-title p {
-            color: #666;
-        }
-
-        .toolbar {
+        .form-box {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 25px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .toolbar input,
-        .toolbar select {
+        .form-box h2 {
+            margin-top: 0;
+        }
+
+        input,
+        select {
             padding: 10px;
-            margin-right: 10px;
+            margin: 6px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        .toolbar button {
+        .form-box input {
+            width: calc(33% - 20px);
+        }
+
+        .form-box select {
+            width: calc(30% - 20px);
+        }
+
+        button {
             padding: 10px 18px;
             border: none;
             border-radius: 5px;
-            background: #1f2937;
+            background: #2563eb;
             color: white;
             cursor: pointer;
+            margin: 6px;
         }
 
-        .toolbar button:hover {
-            opacity: 0.85;
+        button:hover {
+            background: #1d4ed8;
         }
 
-        .table-container {
+        .filter-box {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter-box input {
+            width: 45%;
+        }
+
+        .filter-box select {
+            width: 20%;
+        }
+
+        .table-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
             overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 900px;
-        }
-
-        th,
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
         }
 
         th {
-            background: #f1f3f5;
-            font-size: 14px;
+            background: #1f2937;
+            color: white;
+            padding: 12px;
         }
 
         td {
-            font-size: 14px;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .badge {
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .functional {
-            background: #e8f0fe;
-        }
-
-        .high {
-            background: #ffe0e0;
-        }
-
-        .medium {
-            background: #fff0c2;
-        }
-
-        .pass {
-            background: #e0f2e9;
-        }
-
-        .fail {
-            background: #ffe0e0;
-        }
-
-        .blocked {
-            background: #eeeeee;
+        tr:hover {
+            background: #f1f5f9;
         }
 
         footer {
             text-align: center;
-            padding: 25px;
-            color: #777;
-            font-size: 13px;
+            padding: 20px;
+            margin-top: 30px;
+            background: #1f2937;
+            color: white;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 768px) {
+
+            .form-box input,
+            .form-box select,
+            .filter-box input,
+            .filter-box select {
+                width: 100%;
+                margin: 6px 0;
+            }
+
             header {
-                flex-direction: column;
-                gap: 15px;
+                padding: 18px 20px;
             }
 
             .container {
-                padding: 20px;
-            }
-
-            .toolbar input,
-            .toolbar select,
-            .toolbar button {
-                margin-bottom: 10px;
+                width: 95%;
             }
         }
+
     </style>
+
 </head>
 
 <body>
 
-<header>
+    <header>
 
-    <h1>QA-TestHub</h1>
+        <h1>QA-TestHub</h1>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="test-cases.html">Test Cases</a>
-        <a href="#">Requirements</a>
-        <a href="#">Bugs</a>
-    </nav>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="requirements.html">Requirements</a>
+            <a href="test-cases.html">Test Cases</a>
+            <a href="test-execution.html">Test Execution</a>
+            <a href="bugs.html">Bugs</a>
+            <a href="rtm.html">RTM</a>
+            <a href="api-testing.html">API Testing</a>
+            <a href="ai-assistant.html">AI Assistant</a>
+            <a href="bug-analyzer.html">Bug Analyzer</a>
+        </nav>
 
-</header>
+    </header>
 
 
-<div class="container">
+    <div class="container">
 
-    <div class="page-title">
         <h2>Test Case Management</h2>
-        <p>Create, manage and execute manual test cases.</p>
-    </div>
 
 
-    <div class="toolbar">
+        <!-- ADD TEST CASE FORM -->
 
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search Test Case..."
-            onkeyup="searchTestCases()"
-        >
+        <div class="form-box">
 
-        <select id="typeFilter" onchange="filterTestCases()">
-            <option value="">All Types</option>
-            <option value="Functional">Functional</option>
-            <option value="Regression">Regression</option>
-            <option value="Smoke">Smoke</option>
-            <option value="Negative">Negative</option>
-        </select>
+            <h2>Add New Test Case</h2>
 
-        <select id="statusFilter" onchange="filterTestCases()">
-            <option value="">All Status</option>
-            <option value="Pass">Pass</option>
-            <option value="Fail">Fail</option>
-            <option value="Blocked">Blocked</option>
-        </select>
+            <input
+                type="text"
+                id="newId"
+                placeholder="Test Case ID"
+            >
 
-        <button onclick="showMessage()">
-            + Add Test Case
-        </button>
+            <input
+                type="text"
+                id="newReq"
+                placeholder="Requirement"
+            >
 
-    </div>
+            <input
+                type="text"
+                id="newScenario"
+                placeholder="Test Scenario"
+            >
 
+            <select id="newType">
 
-    <div class="table-container">
+                <option value="">
+                    Select Test Type
+                </option>
 
-        <table id="testCaseTable">
+                <option value="Functional">
+                    Functional
+                </option>
 
-            <thead>
+                <option value="Negative">
+                    Negative
+                </option>
 
-                <tr>
-                    <th>Test Case ID</th>
-                    <th>Scenario</th>
-                    <th>Type</th>
-                    <th>Priority</th>
-                    <th>Expected Result</th>
-                    <th>Status</th>
-                </tr>
+                <option value="Validation">
+                    Validation
+                </option>
 
-            </thead>
+                <option value="Smoke">
+                    Smoke
+                </option>
 
+                <option value="Boundary">
+                    Boundary
+                </option>
 
-            <tbody>
+                <option value="Regression">
+                    Regression
+                </option>
 
-                <tr>
-                    <td>TC-001</td>
-
-                    <td>
-                        Login with valid credentials
-                    </td>
-
-                    <td>
-                        <span class="badge functional">
-                            Functional
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="badge high">
-                            High
-                        </span>
-                    </td>
-
-                    <td>
-                        User successfully logs in
-                    </td>
-
-                    <td>
-                        <span class="badge pass">
-                            Pass
-                        </span>
-                    </td>
-                </tr>
+            </select>
 
 
-                <tr>
-                    <td>TC-002</td>
+            <select id="newPriority">
 
-                    <td>
-                        Login with invalid password
-                    </td>
+                <option value="">
+                    Select Priority
+                </option>
 
-                    <td>
-                        <span class="badge functional">
-                            Functional
-                        </span>
-                    </td>
+                <option value="High">
+                    High
+                </option>
 
-                    <td>
-                        <span class="badge high">
-                            High
-                        </span>
-                    </td>
+                <option value="Medium">
+                    Medium
+                </option>
 
-                    <td>
-                        Error message should be displayed
-                    </td>
+                <option value="Low">
+                    Low
+                </option>
 
-                    <td>
-                        <span class="badge pass">
-                            Pass
-                        </span>
-                    </td>
-                </tr>
+            </select>
 
 
-                <tr>
-                    <td>TC-003</td>
+            <input
+                type="text"
+                id="newExpected"
+                placeholder="Expected Result"
+            >
 
-                    <td>
-                        Login with empty username
-                    </td>
+            <br>
 
-                    <td>
-                        <span class="badge functional">
-                            Negative
-                        </span>
-                    </td>
+            <button onclick="addTestCase()">
+                Add Test Case
+            </button>
 
-                    <td>
-                        <span class="badge medium">
-                            Medium
-                        </span>
-                    </td>
-
-                    <td>
-                        Username validation message displayed
-                    </td>
-
-                    <td>
-                        <span class="badge fail">
-                            Fail
-                        </span>
-                    </td>
-                </tr>
+        </div>
 
 
-                <tr>
-                    <td>TC-004</td>
+        <!-- SEARCH AND FILTER -->
 
-                    <td>
-                        Verify logout functionality
-                    </td>
+        <div class="filter-box">
 
-                    <td>
-                        <span class="badge functional">
-                            Functional
-                        </span>
-                    </td>
-
-                    <td>
-                        <span class="badge high">
-                            High
-                        </span>
-                    </td>
-
-                    <td>
-                        User should be logged out
-                    </td>
-
-                    <td>
-                        <span class="badge pass">
-                            Pass
-                        </span>
-                    </td>
-                </tr>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search test cases..."
+                onkeyup="filterTestCases()"
+            >
 
 
-                <tr>
-                    <td>TC-005</td>
+            <select
+                id="typeFilter"
+                onchange="filterTestCases()"
+            >
 
-                    <td>
-                        Verify password field masking
-                    </td>
+                <option value="">
+                    All Test Types
+                </option>
 
-                    <td>
-                        <span class="badge functional">
-                            Smoke
-                        </span>
-                    </td>
+                <option value="Functional">
+                    Functional
+                </option>
 
-                    <td>
-                        <span class="badge medium">
-                            Medium
-                        </span>
-                    </td>
+                <option value="Negative">
+                    Negative
+                </option>
 
-                    <td>
-                        Password should be hidden
-                    </td>
+                <option value="Validation">
+                    Validation
+                </option>
 
-                    <td>
-                        <span class="badge blocked">
-                            Blocked
-                        </span>
-                    </td>
-                </tr>
+                <option value="Smoke">
+                    Smoke
+                </option>
 
-            </tbody>
+                <option value="Boundary">
+                    Boundary
+                </option>
 
-        </table>
+                <option value="Regression">
+                    Regression
+                </option>
+
+            </select>
+
+
+            <select
+                id="statusFilter"
+                onchange="filterTestCases()"
+            >
+
+                <option value="">
+                    All Status
+                </option>
+
+                <option value="Pass">
+                    Pass
+                </option>
+
+                <option value="Fail">
+                    Fail
+                </option>
+
+                <option value="Blocked">
+                    Blocked
+                </option>
+
+                <option value="Not Executed">
+                    Not Executed
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- TEST CASE TABLE -->
+
+        <div class="table-box">
+
+            <table id="testCaseTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Requirement</th>
+                        <th>Scenario</th>
+                        <th>Test Type</th>
+                        <th>Priority</th>
+                        <th>Expected Result</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="testCaseBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
-</div>
+
+    <footer>
+
+        <p>QA-TestHub | Software Testing Portfolio Project</p>
+
+    </footer>
 
 
-<footer>
-    QA-TestHub © 2026 | QA Testing Portfolio Project
-</footer>
+    <script>
+
+        let defaultTestCases = [
+
+            {
+                id: "TC-001",
+                req: "REQ-001",
+                scenario: "Valid Login",
+                type: "Functional",
+                priority: "High",
+                expected: "User should login successfully",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-002",
+                req: "REQ-001",
+                scenario: "Invalid Password",
+                type: "Negative",
+                priority: "High",
+                expected: "Error message should be displayed",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-003",
+                req: "REQ-001",
+                scenario: "Empty Username",
+                type: "Validation",
+                priority: "Medium",
+                expected: "Username validation message should be displayed",
+                status: "Fail"
+            },
+
+            {
+                id: "TC-004",
+                req: "REQ-001",
+                scenario: "Logout",
+                type: "Functional",
+                priority: "High",
+                expected: "User should be logged out successfully",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-005",
+                req: "REQ-001",
+                scenario: "Password Masking",
+                type: "Smoke",
+                priority: "Medium",
+                expected: "Password should be hidden",
+                status: "Blocked"
+            },
+
+            {
+                id: "TC-006",
+                req: "REQ-002",
+                scenario: "Valid Registration",
+                type: "Functional",
+                priority: "High",
+                expected: "User should be registered successfully",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-007",
+                req: "REQ-002",
+                scenario: "Existing Email",
+                type: "Negative",
+                priority: "High",
+                expected: "Existing email error should be displayed",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-008",
+                req: "REQ-002",
+                scenario: "Password Mismatch",
+                type: "Validation",
+                priority: "Medium",
+                expected: "Password mismatch message should be displayed",
+                status: "Fail"
+            },
+
+            {
+                id: "TC-009",
+                req: "REQ-003",
+                scenario: "Forgot Password",
+                type: "Functional",
+                priority: "Medium",
+                expected: "Password reset option should be available",
+                status: "Pass"
+            },
+
+            {
+                id: "TC-010",
+                req: "REQ-001",
+                scenario: "Maximum Password Length",
+                type: "Boundary",
+                priority: "Medium",
+                expected: "System should handle maximum password length",
+                status: "Blocked"
+            }
+
+        ];
 
 
-<script>
-
-function showMessage() {
-
-    alert(
-        "Add Test Case feature will be implemented in the next phase."
-    );
-
-}
+        let storedTestCases =
+            JSON.parse(
+                localStorage.getItem("qaTestCases")
+            );
 
 
-function searchTestCases() {
-
-    let input =
-        document.getElementById("searchInput").value.toLowerCase();
-
-    let rows =
-        document.querySelectorAll("#testCaseTable tbody tr");
-
-    rows.forEach(function(row) {
-
-        let text = row.innerText.toLowerCase();
-
-        row.style.display =
-            text.includes(input) ? "" : "none";
-
-    });
-
-}
+        let testCases =
+            storedTestCases || defaultTestCases;
 
 
-function filterTestCases() {
+        function displayTestCases(data) {
 
-    let type =
-        document.getElementById("typeFilter").value;
+            let body =
+                document.getElementById("testCaseBody");
 
-    let status =
-        document.getElementById("statusFilter").value;
+            body.innerHTML = "";
 
-    let rows =
-        document.querySelectorAll("#testCaseTable tbody tr");
 
-    rows.forEach(function(row) {
+            data.forEach(function(tc) {
 
-        let rowText = row.innerText;
+                body.innerHTML += `
 
-        let typeMatch =
-            type === "" || rowText.includes(type);
+                    <tr>
 
-        let statusMatch =
-            status === "" || rowText.includes(status);
+                        <td>${tc.id}</td>
 
-        row.style.display =
-            typeMatch && statusMatch ? "" : "none";
+                        <td>${tc.req}</td>
 
-    });
+                        <td>${tc.scenario}</td>
 
-}
+                        <td>${tc.type}</td>
 
-</script>
+                        <td>${tc.priority}</td>
+
+                        <td>${tc.expected}</td>
+
+                        <td>${tc.status}</td>
+
+                    </tr>
+
+                `;
+
+            });
+
+        }
+
+
+        function addTestCase() {
+
+            let id =
+                document.getElementById("newId").value.trim();
+
+            let req =
+                document.getElementById("newReq").value.trim();
+
+            let scenario =
+                document.getElementById("newScenario").value.trim();
+
+            let type =
+                document.getElementById("newType").value;
+
+            let priority =
+                document.getElementById("newPriority").value;
+
+            let expected =
+                document.getElementById("newExpected").value.trim();
+
+
+            if (
+                id === "" ||
+                req === "" ||
+                scenario === "" ||
+                type === "" ||
+                priority === "" ||
+                expected === ""
+            ) {
+
+                alert("Please fill all fields.");
+
+                return;
+
+            }
+
+
+            let existingCase =
+                testCases.some(function(tc) {
+
+                    return tc.id.toLowerCase() === id.toLowerCase();
+
+                });
+
+
+            if (existingCase) {
+
+                alert("Test Case ID already exists.");
+
+                return;
+
+            }
+
+
+            let newTestCase = {
+
+                id: id,
+                req: req,
+                scenario: scenario,
+                type: type,
+                priority: priority,
+                expected: expected,
+                status: "Not Executed"
+
+            };
+
+
+            testCases.push(newTestCase);
+
+
+            localStorage.setItem(
+                "qaTestCases",
+                JSON.stringify(testCases)
+            );
+
+
+            displayTestCases(testCases);
+
+
+            document.getElementById("newId").value = "";
+            document.getElementById("newReq").value = "";
+            document.getElementById("newScenario").value = "";
+            document.getElementById("newType").value = "";
+            document.getElementById("newPriority").value = "";
+            document.getElementById("newExpected").value = "";
+
+
+            alert("Test Case added successfully.");
+
+        }
+
+
+        function filterTestCases() {
+
+            let search =
+                document.getElementById("searchInput")
+                    .value
+                    .toLowerCase();
+
+
+            let type =
+                document.getElementById("typeFilter").value;
+
+
+            let status =
+                document.getElementById("statusFilter").value;
+
+
+            let filtered =
+                testCases.filter(function(tc) {
+
+                    let searchMatch =
+                        tc.id.toLowerCase().includes(search) ||
+                        tc.req.toLowerCase().includes(search) ||
+                        tc.scenario.toLowerCase().includes(search) ||
+                        tc.expected.toLowerCase().includes(search);
+
+
+                    let typeMatch =
+                        type === "" ||
+                        tc.type === type;
+
+
+                    let statusMatch =
+                        status === "" ||
+                        tc.status === status;
+
+
+                    return (
+                        searchMatch &&
+                        typeMatch &&
+                        statusMatch
+                    );
+
+                });
+
+
+            displayTestCases(filtered);
+
+        }
+
+
+        displayTestCases(testCases);
+
+    </script>
 
 </body>
+
 </html>
