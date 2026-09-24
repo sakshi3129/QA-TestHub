@@ -18,8 +18,8 @@ The testing activities included manual testing, functional testing, negative tes
 
 | Metric | Result |
 |--------|--------|
-| Total Test Cases | 10 |
-| Passed | 6 |
+| Total Test Cases | 11 |
+| Passed | 7 |
 | Failed | 2 |
 | Blocked | 2 |
 | API Test Cases | 3 |
@@ -56,8 +56,12 @@ API testing was performed using Postman.
 
 | Bug ID | Description | Severity | Priority | Status |
 |--------|-------------|----------|----------|--------|
-| BUG-001 | Username validation message not displayed | High | High | Open |
+| BUG-001 | Username validation message not displayed | High | High | Closed |
 | BUG-002 | Password masking issue | Medium | Medium | Open |
+
+BUG-001 was processed through the defect lifecycle:
+
+Open → Fixed → Retest → Closed
 
 ---
 
@@ -80,13 +84,15 @@ The major functionalities of QA-TestHub were tested successfully.
 
 API test scenarios passed successfully.
 
+The User Logout test case (TC-011) was executed successfully.
+
 Some functional test cases require further investigation because of identified defects.
 
 ---
 
 ## 9. Recommendations
 
-- Fix open defects and perform retesting.
+- Fix remaining open defects and perform retesting.
 - Perform regression testing after fixes.
 - Perform additional cross-browser testing.
 - Expand API test coverage.

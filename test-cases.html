@@ -1,117 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>QA-TestHub - RTM</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA-TestHub | Test Cases</title>
 
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
+            color: #222;
         }
 
         header {
             background: #1f2937;
             color: white;
-            padding: 18px;
-            text-align: center;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav {
-            background: #111827;
-            padding: 12px;
-            text-align: center;
+        header h1 {
+            font-size: 24px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 12px;
+            margin-left: 18px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
         }
 
         .container {
-            width: 90%;
-            margin: 30px auto;
+            padding: 35px 40px;
         }
 
-        h2 {
-            color: #1f2937;
+        .page-title {
+            margin-bottom: 25px;
         }
 
-        .info {
+        .page-title h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #666;
+        }
+
+        .toolbar {
             background: white;
-            padding: 18px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .toolbar input,
+        .toolbar select {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .toolbar button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            background: #1f2937;
+            color: white;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            opacity: 0.85;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            min-width: 900px;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
         }
 
         th {
-            background: #1f2937;
-            color: white;
-            padding: 12px;
+            background: #f1f3f5;
+            font-size: 14px;
         }
 
         td {
-            padding: 12px;
-            border: 1px solid #ddd;
+            font-size: 14px;
         }
 
-        .covered {
-            color: green;
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
             font-weight: bold;
         }
 
-        .not-executed {
-            color: orange;
-            font-weight: bold;
+        .functional {
+            background: #e8f0fe;
+        }
+
+        .high {
+            background: #ffe0e0;
+        }
+
+        .medium {
+            background: #fff0c2;
         }
 
         .pass {
-            color: green;
-            font-weight: bold;
+            background: #e0f2e9;
         }
 
         .fail {
-            color: red;
-            font-weight: bold;
+            background: #ffe0e0;
         }
 
         .blocked {
-            color: orange;
-            font-weight: bold;
+            background: #eeeeee;
         }
 
-        .summary {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .box {
-            background: white;
-            padding: 18px;
-            border-radius: 8px;
-            flex: 1;
-            min-width: 150px;
+        footer {
             text-align: center;
+            padding: 25px;
+            color: #777;
+            font-size: 13px;
         }
 
-        .box h3 {
-            margin: 0;
-            color: #555;
-        }
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
 
-        .box p {
-            font-size: 25px;
-            font-weight: bold;
-            margin: 10px;
+            .container {
+                padding: 20px;
+            }
+
+            .toolbar input,
+            .toolbar select,
+            .toolbar button {
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -119,324 +178,305 @@
 <body>
 
 <header>
+
     <h1>QA-TestHub</h1>
-    <p>Requirement Traceability Matrix</p>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="test-cases.html">Test Cases</a>
+        <a href="#">Requirements</a>
+        <a href="#">Bugs</a>
+    </nav>
+
 </header>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="requirements.html">Requirements</a>
-    <a href="test-cases.html">Test Cases</a>
-    <a href="test-execution.html">Execution</a>
-    <a href="bugs.html">Bugs</a>
-    <a href="rtm.html">RTM</a>
-</nav>
 
 <div class="container">
 
-    <h2>Requirement Traceability Matrix</h2>
-
-    <div class="info">
-        <p>
-            RTM maps each requirement with its related test cases
-            and execution status.
-        </p>
+    <div class="page-title">
+        <h2>Test Case Management</h2>
+        <p>Create, manage and execute manual test cases.</p>
     </div>
 
-    <div class="summary">
 
-        <div class="box">
-            <h3>Total Requirements</h3>
-            <p id="totalRequirements">0</p>
-        </div>
+    <div class="toolbar">
 
-        <div class="box">
-            <h3>Covered Requirements</h3>
-            <p id="coveredRequirements">0</p>
-        </div>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search Test Case..."
+            onkeyup="searchTestCases()"
+        >
 
-        <div class="box">
-            <h3>Executed Tests</h3>
-            <p id="executedTests">0</p>
-        </div>
+        <select id="typeFilter" onchange="filterTestCases()">
+            <option value="">All Types</option>
+            <option value="Functional">Functional</option>
+            <option value="Regression">Regression</option>
+            <option value="Smoke">Smoke</option>
+            <option value="Negative">Negative</option>
+        </select>
 
-        <div class="box">
-            <h3>Passed Tests</h3>
-            <p id="passedTests">0</p>
-        </div>
+        <select id="statusFilter" onchange="filterTestCases()">
+            <option value="">All Status</option>
+            <option value="Pass">Pass</option>
+            <option value="Fail">Fail</option>
+            <option value="Blocked">Blocked</option>
+        </select>
+
+        <button onclick="showMessage()">
+            + Add Test Case
+        </button>
 
     </div>
 
-    <table>
 
-        <thead>
-            <tr>
-                <th>Requirement ID</th>
-                <th>Requirement</th>
-                <th>Test Case</th>
-                <th>Scenario</th>
-                <th>Execution Status</th>
-                <th>Coverage</th>
-            </tr>
-        </thead>
+    <div class="table-container">
 
-        <tbody id="rtmBody"></tbody>
+        <table id="testCaseTable">
 
-    </table>
+            <thead>
+
+                <tr>
+                    <th>Test Case ID</th>
+                    <th>Scenario</th>
+                    <th>Type</th>
+                    <th>Priority</th>
+                    <th>Expected Result</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+                    <td>TC-001</td>
+
+                    <td>
+                        Login with valid credentials
+                    </td>
+
+                    <td>
+                        <span class="badge functional">
+                            Functional
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge high">
+                            High
+                        </span>
+                    </td>
+
+                    <td>
+                        User successfully logs in
+                    </td>
+
+                    <td>
+                        <span class="badge pass">
+                            Pass
+                        </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>TC-002</td>
+
+                    <td>
+                        Login with invalid password
+                    </td>
+
+                    <td>
+                        <span class="badge functional">
+                            Functional
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge high">
+                            High
+                        </span>
+                    </td>
+
+                    <td>
+                        Error message should be displayed
+                    </td>
+
+                    <td>
+                        <span class="badge pass">
+                            Pass
+                        </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>TC-003</td>
+
+                    <td>
+                        Login with empty username
+                    </td>
+
+                    <td>
+                        <span class="badge functional">
+                            Negative
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge medium">
+                            Medium
+                        </span>
+                    </td>
+
+                    <td>
+                        Username validation message displayed
+                    </td>
+
+                    <td>
+                        <span class="badge fail">
+                            Fail
+                        </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>TC-004</td>
+
+                    <td>
+                        Verify logout functionality
+                    </td>
+
+                    <td>
+                        <span class="badge functional">
+                            Functional
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge high">
+                            High
+                        </span>
+                    </td>
+
+                    <td>
+                        User should be logged out
+                    </td>
+
+                    <td>
+                        <span class="badge pass">
+                            Pass
+                        </span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>TC-005</td>
+
+                    <td>
+                        Verify password field masking
+                    </td>
+
+                    <td>
+                        <span class="badge functional">
+                            Smoke
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge medium">
+                            Medium
+                        </span>
+                    </td>
+
+                    <td>
+                        Password should be hidden
+                    </td>
+
+                    <td>
+                        <span class="badge blocked">
+                            Blocked
+                        </span>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
+
+<footer>
+    QA-TestHub © 2026 | QA Testing Portfolio Project
+</footer>
+
+
 <script>
 
-const defaultRequirements = [
-    {
-        id: "REQ-001",
-        title: "User Login",
-        description: "User should be able to login using valid username and password.",
-        priority: "High"
-    },
-    {
-        id: "REQ-002",
-        title: "User Registration",
-        description: "New users should be able to create an account using valid details.",
-        priority: "High"
-    },
-    {
-        id: "REQ-003",
-        title: "Password Reset",
-        description: "User should be able to reset password using registered email.",
-        priority: "Medium"
-    },
-    {
-        id: "REQ-004",
-        title: "User Logout",
-        description: "User should be able to logout successfully and be redirected to the login page.",
-        priority: "High"
-    }
-];
+function showMessage() {
 
-const defaultTestCases = [
-    {
-        id: "TC-001",
-        req: "REQ-001",
-        scenario: "Verify valid login",
-        type: "Functional",
-        priority: "High"
-    },
-    {
-        id: "TC-002",
-        req: "REQ-001",
-        scenario: "Verify invalid password",
-        type: "Negative",
-        priority: "High"
-    },
-    {
-        id: "TC-003",
-        req: "REQ-001",
-        scenario: "Verify empty username",
-        type: "Validation",
-        priority: "Medium"
-    },
-    {
-        id: "TC-006",
-        req: "REQ-002",
-        scenario: "Verify valid registration",
-        type: "Functional",
-        priority: "High"
-    },
-    {
-        id: "TC-007",
-        req: "REQ-002",
-        scenario: "Verify existing email",
-        type: "Negative",
-        priority: "High"
-    },
-    {
-        id: "TC-008",
-        req: "REQ-002",
-        scenario: "Verify password mismatch",
-        type: "Validation",
-        priority: "Medium"
-    },
-    {
-        id: "TC-009",
-        req: "REQ-003",
-        scenario: "Verify forgot password",
-        type: "Functional",
-        priority: "Medium"
-    },
-    {
-        id: "TC-011",
-        req: "REQ-004",
-        scenario: "Verify that user can logout successfully",
-        type: "Functional",
-        priority: "High"
-    }
-];
-
-function getRequirements() {
-
-    let data = JSON.parse(
-        localStorage.getItem("qaRequirements") || "null"
+    alert(
+        "Add Test Case feature will be implemented in the next phase."
     );
 
-    return Array.isArray(data) && data.length > 0
-        ? data
-        : defaultRequirements;
 }
 
-function getTestCases() {
 
-    let data = JSON.parse(
-        localStorage.getItem("qaTestCases") || "null"
-    );
+function searchTestCases() {
 
-    return Array.isArray(data) && data.length > 0
-        ? data
-        : defaultTestCases;
-}
+    let input =
+        document.getElementById("searchInput").value.toLowerCase();
 
-function getExecutions() {
+    let rows =
+        document.querySelectorAll("#testCaseTable tbody tr");
 
-    let data = JSON.parse(
-        localStorage.getItem("qaExecutions") || "[]"
-    );
+    rows.forEach(function(row) {
 
-    return Array.isArray(data) ? data : [];
-}
+        let text = row.innerText.toLowerCase();
 
-function normalizeRequirement(value) {
-
-    if (!value) {
-        return "";
-    }
-
-    return value.split(" ")[0].trim();
-}
-
-function getLatestExecution(testCaseId, executions) {
-
-    let matches = executions.filter(function(execution) {
-
-        return execution.testCase === testCaseId ||
-               execution.id === testCaseId ||
-               execution.testCaseId === testCaseId;
+        row.style.display =
+            text.includes(input) ? "" : "none";
 
     });
 
-    if (matches.length === 0) {
-        return null;
-    }
-
-    return matches[matches.length - 1];
 }
 
-function displayRTM() {
 
-    let requirements = getRequirements();
-    let testCases = getTestCases();
-    let executions = getExecutions();
+function filterTestCases() {
 
-    let body = document.getElementById("rtmBody");
+    let type =
+        document.getElementById("typeFilter").value;
 
-    body.innerHTML = "";
+    let status =
+        document.getElementById("statusFilter").value;
 
-    let coveredCount = 0;
-    let executedCount = 0;
-    let passedCount = 0;
+    let rows =
+        document.querySelectorAll("#testCaseTable tbody tr");
 
-    requirements.forEach(function(requirement) {
+    rows.forEach(function(row) {
 
-        let requirementId = requirement.id;
+        let rowText = row.innerText;
 
-        let relatedCases = testCases.filter(function(tc) {
+        let typeMatch =
+            type === "" || rowText.includes(type);
 
-            return normalizeRequirement(tc.req) === requirementId;
+        let statusMatch =
+            status === "" || rowText.includes(status);
 
-        });
-
-        if (relatedCases.length > 0) {
-            coveredCount++;
-        }
-
-        if (relatedCases.length === 0) {
-
-            body.innerHTML += `
-                <tr>
-                    <td>${requirementId}</td>
-                    <td>${requirement.title}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td class="not-executed">Not Executed</td>
-                    <td class="not-executed">Not Covered</td>
-                </tr>
-            `;
-
-            return;
-        }
-
-        relatedCases.forEach(function(tc) {
-
-            let execution = getLatestExecution(tc.id, executions);
-
-            let status = execution
-                ? execution.status
-                : "Not Executed";
-
-            if (execution) {
-                executedCount++;
-            }
-
-            if (status === "Pass") {
-                passedCount++;
-            }
-
-            let statusClass = "";
-
-            if (status === "Pass") {
-                statusClass = "pass";
-            } else if (status === "Fail") {
-                statusClass = "fail";
-            } else if (status === "Blocked") {
-                statusClass = "blocked";
-            } else {
-                statusClass = "not-executed";
-            }
-
-            body.innerHTML += `
-                <tr>
-                    <td>${requirementId}</td>
-                    <td>${requirement.title}</td>
-                    <td>${tc.id}</td>
-                    <td>${tc.scenario}</td>
-                    <td class="${statusClass}">
-                        ${status}
-                    </td>
-                    <td class="covered">
-                        Covered
-                    </td>
-                </tr>
-            `;
-
-        });
+        row.style.display =
+            typeMatch && statusMatch ? "" : "none";
 
     });
 
-    document.getElementById("totalRequirements").textContent =
-        requirements.length;
-
-    document.getElementById("coveredRequirements").textContent =
-        coveredCount;
-
-    document.getElementById("executedTests").textContent =
-        executedCount;
-
-    document.getElementById("passedTests").textContent =
-        passedCount;
 }
-
-displayRTM();
 
 </script>
 

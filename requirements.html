@@ -179,8 +179,7 @@
 
         <textarea
             id="description"
-            placeholder="Enter requirement description">
-        </textarea>
+            placeholder="Enter requirement description"></textarea>
 
 
         <label>Priority</label>
@@ -225,9 +224,7 @@
 
             </thead>
 
-            <tbody id="requirementBody">
-
-            </tbody>
+            <tbody id="requirementBody"></tbody>
 
         </table>
 
@@ -238,8 +235,99 @@
 
 <script>
 
-let requirements =
+
+/* =========================
+   DEFAULT REQUIREMENTS
+========================= */
+
+
+let defaultRequirements = [
+
+    {
+        id: "REQ-001",
+        title: "User Login",
+        description: "User should be able to login using valid username and password.",
+        priority: "High"
+    },
+
+    {
+        id: "REQ-002",
+        title: "User Registration",
+        description: "New users should be able to create an account using valid details.",
+        priority: "High"
+    },
+
+    {
+        id: "REQ-003",
+        title: "Password Reset",
+        description: "User should be able to reset password using registered email.",
+        priority: "Medium"
+    },
+
+    {
+        id: "REQ-004",
+        title: "User Logout",
+        description: "User should be able to logout successfully and be redirected to the login page.",
+        priority: "High"
+    }
+
+];
+
+
+/* =========================
+   LOAD REQUIREMENTS
+========================= */
+
+
+let storedRequirements =
     JSON.parse(localStorage.getItem("qaRequirements")) || [];
+
+
+let requirements = [];
+
+
+/* Add default requirements */
+
+defaultRequirements.forEach(function(req) {
+
+    requirements.push(req);
+
+});
+
+
+/* Add user-created requirements
+   without creating duplicates */
+
+storedRequirements.forEach(function(req) {
+
+    let exists =
+        requirements.some(function(item) {
+
+            return item.id === req.id;
+
+        });
+
+
+    if (!exists) {
+
+        requirements.push(req);
+
+    }
+
+});
+
+
+/* Save complete requirement list */
+
+localStorage.setItem(
+    "qaRequirements",
+    JSON.stringify(requirements)
+);
+
+
+/* =========================
+   SAVE REQUIREMENT
+========================= */
 
 
 function saveRequirement() {
@@ -263,12 +351,25 @@ function saveRequirement() {
     }
 
 
-    let number =
-        requirements.length + 1;
+    let nextNumber = 1;
+
+
+    requirements.forEach(function(req) {
+
+        let number =
+            parseInt(req.id.replace("REQ-", ""));
+
+        if (number >= nextNumber) {
+
+            nextNumber = number + 1;
+
+        }
+
+    });
 
 
     let requirementId =
-        "REQ-" + String(number).padStart(3, "0");
+        "REQ-" + String(nextNumber).padStart(3, "0");
 
 
     let requirement = {
@@ -293,7 +394,10 @@ function saveRequirement() {
     );
 
 
-    alert("Requirement added successfully!");
+    alert(
+        requirementId +
+        " added successfully!"
+    );
 
 
     document.getElementById("title").value = "";
@@ -304,6 +408,11 @@ function saveRequirement() {
     displayRequirements();
 
 }
+
+
+/* =========================
+   DISPLAY REQUIREMENTS
+========================= */
 
 
 function displayRequirements() {
@@ -338,6 +447,11 @@ function displayRequirements() {
     });
 
 }
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
 
 
 displayRequirements();
